@@ -1,0 +1,14 @@
+.contact_list {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+}
+h2 {
+  text-align: center;
+  font-family: "Times New Roman", Times, serif;
+  font-size: normal;
+  font-weight: 700;
+  color: tomato;
+}

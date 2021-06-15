@@ -1,0 +1,16 @@
+.item_element {
+  width: 200px;
+}
+
+h3 {
+  text-align: center;
+  font-family: "Times New Roman", Times, serif;
+  font-size: normal;
+  font-weight: 700;
+  color: tomato;
+}
+.filter_envelope {
+  display: block;
+  justify-content: center;
+  text-align: center;
+}

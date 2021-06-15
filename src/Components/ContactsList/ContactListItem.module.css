@@ -1,0 +1,12 @@
+.item_contact {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.item_button {
+  margin-left: 20px;
+  width: 100px;
+  padding: 2px 2px;
+  border-radius: 8px;
+  background-color: cornflowerblue;
+}
