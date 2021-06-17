@@ -85,7 +85,6 @@ class ContactForm extends Component {
   }
 }
 
-// export default ContactForm;
 const mapDispatchToProps = dispatch => ({
   onSubmit: (name, number) =>
     dispatch(contactsActions.addContact(name, number)),
