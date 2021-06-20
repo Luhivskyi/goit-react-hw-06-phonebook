@@ -1,8 +1,8 @@
+/* eslint-disable no-unused-vars */
 import { Component } from 'react';
 import s from './ContactForm.module.css';
 import PropTypes from 'prop-types';
-import { v4 as uuid } from 'uuid';
-
+// import { v4 as uuid } from 'uuid';
 import { connect } from 'react-redux';
 import contactsActions from '../../redux/contacts-actions';
 
@@ -13,8 +13,14 @@ const INITIAL__STATE = {
 
 class ContactForm extends Component {
   static propTypes = {
-    onAdd: PropTypes.func.isRequired,
-    onCheckUnique: PropTypes.func.isRequired,
+    contacts: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        number: PropTypes.string.isRequired,
+      }).isRequired,
+    ),
+    onSubmitForm: PropTypes.func.isRequired,
   };
 
   state = INITIAL__STATE;
@@ -28,22 +34,31 @@ class ContactForm extends Component {
     event.preventDefault();
 
     const { name, number } = this.state;
-    const { onAdd } = this.props;
+
     const isValidatedForm = this.validateForm();
     if (!isValidatedForm) return;
-    onAdd({ id: uuid(), name, number });
+    this.props.onSubmitForm(name, number);
 
     this.resetForm();
   };
 
   validateForm = () => {
     const { name, number } = this.state;
-    const { onCheckUnique } = this.props;
     if (!name || !number) {
       alert('Some fild is empty');
       return false;
     }
-    return onCheckUnique(name);
+
+    return this.handleCheckUnique(name);
+  };
+
+  handleCheckUnique = name => {
+    const { contacts } = this.props;
+    const isExistContact = contacts.find(contact => contact.name === name);
+
+    isExistContact && alert('Contact is already exist');
+    this.resetForm();
+    return !isExistContact;
   };
 
   resetForm = () => {
@@ -85,9 +100,13 @@ class ContactForm extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  contacts: state.contacts.items,
+});
+
 const mapDispatchToProps = dispatch => ({
-  onSubmit: (name, number) =>
+  onSubmitForm: (name, number) =>
     dispatch(contactsActions.addContact(name, number)),
 });
 
-export default connect(null, mapDispatchToProps)(ContactForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);

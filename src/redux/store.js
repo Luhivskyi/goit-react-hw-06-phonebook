@@ -30,7 +30,7 @@ const contactsPersistConfig = {
 };
 const store = configureStore({
   reducer: {
-    state: persistReducer(contactsPersistConfig, contactsReducer),
+    contacts: persistReducer(contactsPersistConfig, contactsReducer),
   },
   middleware,
 });

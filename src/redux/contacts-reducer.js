@@ -9,7 +9,7 @@ const defaultState = [
   { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
 ];
 
-const contacts = createReducer([...defaultState], {
+const items = createReducer([...defaultState], {
   [actions.addContact]: (state, { payload }) => {
     const isValidate = state.some(contact => contact.name === payload.name);
     if (!isValidate) {
@@ -28,6 +28,6 @@ const filter = createReducer('', {
 });
 
 export default combineReducers({
-  contacts,
+  items,
   filter,
 });
